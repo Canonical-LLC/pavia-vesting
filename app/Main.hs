@@ -14,9 +14,35 @@ import qualified Plutus.V1.Ledger.Ada as Ada
 import qualified Plutus.V1.Ledger.Time as Time
 
 import qualified Canonical.Vesting as Vesting
+import           Data.List.Split
+import qualified PlutusTx.AssocMap as M
+import           Text.Read
+import           Data.String
+import qualified PlutusTx.Prelude as PlutusTx
+import           PlutusTx.These
 
 main :: IO ()
 main = join . execParser $ opts
+
+parseValue :: String -> Maybe Plutus.Value
+parseValue = parseValue' . words
+
+parseValue' :: [String] -> Maybe Plutus.Value
+parseValue' = go mempty where
+  go (Plutus.Value acc) xs = case xs of
+    [] -> Just $ Plutus.Value acc
+    countStr:asset:rest -> do
+      count <- readMaybe countStr
+      (policyId, tokenName) <- case splitOn "." asset of
+        [policyId, tokenName] -> Just (fromString policyId, fromString tokenName)
+        _
+          | asset == "lovelace" -> Just (Ada.adaSymbol, Ada.adaToken)
+          | otherwise -> Nothing
+
+      let newAcc = Plutus.Value $ these id id (\x y -> these id id (+) PlutusTx.<$> M.union x y) PlutusTx.<$> M.union (M.singleton policyId $ M.singleton tokenName count) acc
+
+      go newAcc rest
+    _ -> Nothing
 
 opts :: ParserInfo (IO ())
 opts = info (optsParser <**> helper) . mconcat $
@@ -61,12 +87,9 @@ optsParser = subparser . mconcat $
         parseDeadline = case reads @Integer ts of
           [(r, "")] -> Right . Time.fromMilliSeconds . fromInteger $ r * 1000
           _ -> Left . mconcat $ [ "Cannot parse deadline `", ts, "`" ]
-        parseAmount = case reads as of
-          [(r, "")] ->
-            if r < minAda
-              then Left . mconcat $ [ "Must send at least 1,000,000 lovelace (i.e. 1 ada), `", as, "` would not be able to be unlocked" ]
-              else Right . Ada.lovelaceValueOf $ r
-          _ -> Left . mconcat $ [ "Cannot parse amount `", as, "`" ]
+        parseAmount = case Main.parseValue as of
+          Nothing -> Left "Failed to parse Value"
+          Just v -> Right v
 
       (_, _) -> Left "Missing amount"
 

@@ -45,3 +45,5 @@ executable vesting-sc
     , plutus-ledger-api
     , optparse-applicative
     , vesting
+    , split
+    , plutus-tx

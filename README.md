@@ -1,22 +1,8 @@
 # Vesting Smart Contract
 
-This smart contract validates Ada is unlocked only when the vesting deadline has passed.
+This smart contract validates tokens are unlocked only when the vesting deadline has passed.
 
-## Building
-
-The compile the code to a Plutus smart contract, run:
-
-```bash
-cabal run vesting-sc -- write --output scripts/vesting.plutus
-```
-
-This will write a file to `scripts/vesting.plutus`
-
-A `shell.nix` is also providing for nix users.
-
-## Creating the Script Address
-
-After compiling the smart contract, it is necessary to make a script address.
+## Setting up the Environment
 
 First source either the testnet or mainnet environment variables.
 
@@ -34,13 +20,17 @@ $ source scripts/envars/mainnet-env.envvars
 
 The environment variable files set `CARDANO_NODE_SOCKET_PATH` to the path of the appropriate Daedalus socket file (either Testnet Daedalus or the regular mainnet Daedalus). It you run a `cardano-node` on your own you should set this environment variable to your socket file location after sourcing the environment variable file.
 
-Next, run:
+## Building
+
+The compile the code to a Plutus smart contract, run:
 
 ```bash
-scripts/hash-plutus.sh
+./scripts/compile.sh
 ```
 
-This will make the files `testnet/vesting.addr` or `mainnet/vesting.addr`.
+This will write a file to `scripts/vesting.plutus` and either `testnet/vesting.addr` or `mainnet/vesting.addr` depending on the result of the previous step.
+
+A `shell.nix` is also providing for nix users.
 
 ## Example Transactions
 
@@ -55,8 +45,18 @@ To create a datum file, the `vesting-sc` tool can be used
 ```
 $ cabal run -- vesting-sc datum \
   --beneficiary 67614c1b06ddbb100cb6cbe919594cac31771c25530b6c7f28da242b \
-  --portion $(date -d '+1 month' '+%s'):1000000 \
-  --portion $(date -d '+2 month' '+%s'):1000000
+  --portion $(date -d '+12 month' '+%s'):16666666 884892bcdc360bcef87d6b3f806e7f9cd5ac30d999d49970e7a903ae.5041564941 \
+  --portion $(date -d '+13 month' '+%s'):16666666 884892bcdc360bcef87d6b3f806e7f9cd5ac30d999d49970e7a903ae.5041564941
+
+```
+
+for MacOS run:
+
+```
+$ cabal run -- vesting-sc datum \
+  --beneficiary 67614c1b06ddbb100cb6cbe919594cac31771c25530b6c7f28da242b \
+  --portion $(date -v+12m '+%s'):16666666 884892bcdc360bcef87d6b3f806e7f9cd5ac30d999d49970e7a903ae.5041564941 \
+  --portion $(date -v+13m '+%s'):16666666 884892bcdc360bcef87d6b3f806e7f9cd5ac30d999d49970e7a903ae.5041564941
 ```
 
 This creates a datum with a vesting schedule for 2 Ada: the 1 Ada vests after one month and the second Ada vests after two months.
