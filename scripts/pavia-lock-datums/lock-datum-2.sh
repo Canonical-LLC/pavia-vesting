@@ -41,6 +41,6 @@ cabal run -- vesting-sc datum \
   --portion "$(date -v+44m '+%s'):6388888 884892bcdc360bcef87d6b3f806e7f9cd5ac30d999d49970e7a903ae.5041564941" \
   --portion "$(date -v+45m '+%s'):6388888 884892bcdc360bcef87d6b3f806e7f9cd5ac30d999d49970e7a903ae.5041564941" \
   --portion "$(date -v+46m '+%s'):6388888 884892bcdc360bcef87d6b3f806e7f9cd5ac30d999d49970e7a903ae.5041564941" \
-  --portion "$(date -v+47m '+%s'):6388888 884892bcdc360bcef87d6b3f806e7f9cd5ac30d999d49970e7a903ae.5041564941" \
+  --portion "$(date -v+47m '+%s'):6388920 884892bcdc360bcef87d6b3f806e7f9cd5ac30d999d49970e7a903ae.5041564941" \
   --output paviaDatum2.json
 )
