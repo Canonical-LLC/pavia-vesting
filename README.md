@@ -45,8 +45,8 @@ To create a datum file, the `vesting-sc` tool can be used
 ```
 $ cabal run -- vesting-sc datum \
   --beneficiary 67614c1b06ddbb100cb6cbe919594cac31771c25530b6c7f28da242b \
-  --portion $(date -d '+12 month' '+%s'):16666666 884892bcdc360bcef87d6b3f806e7f9cd5ac30d999d49970e7a903ae.5041564941 \
-  --portion $(date -d '+13 month' '+%s'):16666666 884892bcdc360bcef87d6b3f806e7f9cd5ac30d999d49970e7a903ae.5041564941
+  --portion $(date -d '+12 month' '+%s'):16666666 884892bcdc360bcef87d6b3f806e7f9cd5ac30d999d49970e7a903ae.PAVIA \
+  --portion $(date -d '+13 month' '+%s'):16666666 884892bcdc360bcef87d6b3f806e7f9cd5ac30d999d49970e7a903ae.PAVIA
 
 ```
 
@@ -55,8 +55,8 @@ for MacOS run:
 ```
 $ cabal run -- vesting-sc datum \
   --beneficiary 67614c1b06ddbb100cb6cbe919594cac31771c25530b6c7f28da242b \
-  --portion $(date -v+12m '+%s'):16666666 884892bcdc360bcef87d6b3f806e7f9cd5ac30d999d49970e7a903ae.5041564941 \
-  --portion $(date -v+13m '+%s'):16666666 884892bcdc360bcef87d6b3f806e7f9cd5ac30d999d49970e7a903ae.5041564941
+  --portion $(date -v+12m '+%s'):16666666 884892bcdc360bcef87d6b3f806e7f9cd5ac30d999d49970e7a903ae.PAVIA \
+  --portion $(date -v+13m '+%s'):16666666 884892bcdc360bcef87d6b3f806e7f9cd5ac30d999d49970e7a903ae.PAVIA
 ```
 
 This creates a datum with a vesting schedule for 2 Ada: the 1 Ada vests after one month and the second Ada vests after two months.
