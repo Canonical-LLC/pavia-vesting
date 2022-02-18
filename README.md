@@ -61,6 +61,20 @@ $ cabal run -- vesting-sc datum \
 
 This creates a datum with a vesting schedule for 2 Ada: the 1 Ada vests after one month and the second Ada vests after two months.
 
+## Pavia Specific Datum Generation Scripts
+
+In `scripts/pavia-lock-datums` there are two scripts `lock-datum-1.sh` and `lock-datum-2.sh` that take in beneficiary as and argument and produce a 1 year cliff 36 month disbursement schedule for 600,000,000 and 230,000,000 $PAVIA tokens respectively.
+
+There are also example datums, `paviaDatum1.json` and `paviaDatum2.json` that show the output with an example beneficiary.
+
+To run the scripts call
+
+```bash
+$ ./scripts/pavia-lock-datums/lock-datum-1.sh 67614c1b06ddbb100cb6cbe919594cac31771c25530b6c7f28da242b
+```
+
+Where the first argument is the public key hash of the beneficiary.
+
 ## Full System Testing Prerequistes
 
 Before testing you need to make sure you have `cardano-cli` installed and on your path, and it must be version 1.31.0 or greater. You will also need the json utility `jq` as well as `cardano-cli` helper `cardano-cli-balance-fixer` which can be downloaded here: https://github.com/Canonical-LLC/cardano-cli-balance-fixer
