@@ -14,5 +14,5 @@ $baseDir/core/unlock-first-successfully-tx.sh \
   $(cat $baseDir/$BLOCKCHAIN_PREFIX/datums/$DATUM_PREFIX/vesting-hash.txt) \
   $baseDir/$BLOCKCHAIN_PREFIX/datums/$DATUM_PREFIX/vesting.json \
   $(cat $baseDir/$BLOCKCHAIN_PREFIX/datums/$DATUM_PREFIX/vesting-hash.txt) \
-  600000 \
-  1400000
+  "600000 lovelace" \
+  "1400000 lovelace"

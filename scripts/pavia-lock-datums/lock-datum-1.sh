@@ -5,7 +5,7 @@ mainDir=$thisDir/../..
 (
 cd $mainDir
 cabal run -- vesting-sc datum \
-  --beneficiary $1 \
+  --beneficiary 91a742a895f32d6aac3feaeb2867c0060c4884d4793bd223478e740f \
   --portion "$(date -v+12m '+%s'):16666666 884892bcdc360bcef87d6b3f806e7f9cd5ac30d999d49970e7a903ae.PAVIA" \
   --portion "$(date -v+13m '+%s'):16666666 884892bcdc360bcef87d6b3f806e7f9cd5ac30d999d49970e7a903ae.PAVIA" \
   --portion "$(date -v+14m '+%s'):16666666 884892bcdc360bcef87d6b3f806e7f9cd5ac30d999d49970e7a903ae.PAVIA" \

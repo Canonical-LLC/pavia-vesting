@@ -44,7 +44,7 @@ cardano-cli transaction build \
     --tx-in-redeemer-file $redeemerFile \
     --required-signer $signingKey \
     --tx-in-collateral $(cardano-cli-balance-fixer collateral --address $beneficiaryAddr $BLOCKCHAIN) \
-    --tx-out "$scriptHash + $leftOverAmount lovelace" \
+    --tx-out "$scriptHash + $leftOverAmount" \
     --tx-out-datum-hash $newDatumHash \
     --tx-out-datum-embed-file $newDatum \
     --tx-out "$beneficiaryAddr + $output1" \
