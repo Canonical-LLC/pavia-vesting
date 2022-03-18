@@ -127,3 +127,64 @@ $ scripts/query/beneficiary
 ```
 
 Note that if you wait until everything is vested, the beneficiary will have received all the value.
+
+## Locking and Unlocking $PAVIA
+
+There are scripts to lock and unlock $PAVIA tokens.
+
+First source mainnet
+
+```
+$ source scripts/envars/mainnet-env.envars
+```
+
+Then run the datum generation scripts
+
+```bash
+$ scripts/pavia-lock-datums/lock-datum-1.sh
+$ scripts/pavia-lock-datums/lock-datum-1-test.sh
+```
+
+Then create the test transaction:
+
+```bash
+$ scripts/pavia-lock-datums/lock-1-tx-test.sh
+```
+
+This will create the transaction body `lock-test-1.body` which is check in as well.
+
+### WARNING This test locks 36 real $PAVIA tokens!
+
+Then sign and submit it with:
+
+```bash
+$ scripts/pavia-lock-datums/sign-lock-test-1-tx.sh PATH_TO_BENEFACTOR_SIGNING_KEY
+```
+
+This will sign and submit the transaction to lock the test $PAVIA.
+
+The tokens can be disbursed with the command:
+
+```bash
+$ scripts/pavia-unlock-txs/unlock-test-1-tx.sh 1 35
+```
+
+This unlocking can be repeated until all the tokens have been unlocked, e.g. next do:
+
+```bash
+$ scripts/pavia-unlock-txs/unlock-test-1-tx.sh 1 34
+```
+
+Where the first parameter is the amount to unlock and the second is the amount of $PAVIA left.
+
+If the transaction succeed, then move on the real vesting locking transaction by running:
+
+```bash
+$ scripts/pavia-lock-datums/lock-1-tx.sh
+```
+
+And then
+
+```bash
+$ scripts/pavia-lock-datums/sign-lock-1-tx.sh PATH_TO_BENEFACTOR_SIGNING_KEY
+```

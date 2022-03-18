@@ -13,8 +13,8 @@ oldDatumFile=$rootDir/paviaDatum1-test.json
 oldDatumHash=$rootDir/paviaDatum1-test-hash.txt
 newDatum=$rootDir/paviaDatum1-test.json
 newDatumHash=$rootDir/paviaDatum1-test-hash.txt
-unlockAmount=$2
-leftOverAmount=$3
+unlockAmount="1744798 lovelace $2 884892bcdc360bcef87d6b3f806e7f9cd5ac30d999d49970e7a903ae.5041564941"
+leftOverAmount="1744798 lovelace $3 884892bcdc360bcef87d6b3f806e7f9cd5ac30d999d49970e7a903ae.5041564941"
 
 $baseDir/core/unlock-first-successfully-tx.sh \
   $beneficiaryAddr \
